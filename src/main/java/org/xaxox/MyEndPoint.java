@@ -7,19 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 @ServerEndpoint(value = "/ws", configurator = WebSocketConfigurer.class)
-public class EndPoint {
+public class MyEndPoint {
 
 
     private Set<Session> userSessions = Collections.synchronizedSet(new HashSet<Session>());
 
     /**
-     * Callback hook for Connection open events. This method will be invoked when a
+     * Callback hook for Connection w events. This method will be invoked when a
      * client requests for a WebSocket connection.
      * @param userSession the userSession which is opened.
      */
     @OnOpen
     public void onOpen(Session userSession) {
-        userSession.addMessageHandler();
+
         userSessions.add(userSession);
     }
 

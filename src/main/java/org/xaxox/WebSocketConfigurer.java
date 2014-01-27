@@ -6,7 +6,7 @@ import javax.websocket.server.ServerEndpointConfig;
 public class WebSocketConfigurer extends ServerEndpointConfig.Configurator {
 
 
-    private static EndPoint endPoint = new EndPoint();
+    private static MyEndPoint endPoint = new MyEndPoint();
 
     @Override
     public <T> T getEndpointInstance(Class<T> endpointClass) throws InstantiationException {

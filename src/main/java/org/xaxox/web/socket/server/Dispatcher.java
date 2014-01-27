@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class Dispatcher implements MessageHandler.Whole {
+public class Dispatcher {
 
     @Autowired
     private ApplicationContext context;
