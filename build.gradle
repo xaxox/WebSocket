@@ -5,15 +5,9 @@ repositories {
 }
 
 dependencies {
-    compile 'org.apache.tomcat:tomcat-catalina:7.0.47'
-    compile 'org.apache.tomcat:tomcat-coyote:7.0.47'
-    compile 'org.apache.tomcat:tomcat-jasper:7.0.47'
     compile 'org.springframework:spring-web:4.0.0.RELEASE'
     compile 'com.google.code.gson:gson:2.2.4'
-
-
-
-
-
+    compile 'javax.websocket:javax.websocket-api:1.0'
+    compile 'org.apache.geronimo.specs:geronimo-servlet_3.0_spec:1.0'
 
 }

@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.websocket.MessageHandler;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class Dispatcher {
+public class Dispatcher implements MessageHandler.Whole {
 
     @Autowired
     private ApplicationContext context;
@@ -26,6 +27,9 @@ public class Dispatcher {
     private Map<String, Entry> listeners = new HashMap<String, Entry>();
 
     private Map<String,Class> modelClasses = new HashMap<String, Class>();
+
+
+
 
     @PostConstruct
     public void scan() {
@@ -55,81 +59,6 @@ public class Dispatcher {
 
     }
 
-
-    public void dispatch(WebSocketSession session, String message){
-
-
-        String[] statements = message.split("//;");
-
-        for (String statement : statements) {
-
-
-            String[] comData = statement.split("//=");
-
-
-            String[] split = comData[0].split("//.");
-
-
-            String nameOfModel = split[0];
-            String nameOfField = split[1];
-
-            Class model = modelClasses.get(nameOfModel);
-
-
-//            session.
-
-
-
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-        Entry entry = null;
-
-        if(entry == null){
-
-
-            return;
-        }
-
-
-
-//        build();
-
-        Class<?>[] parameterTypes = entry.method.getParameterTypes();
-        Object[] parmeters = new Object[parameterTypes.length];
-
-        for (int i = 0; i < parameterTypes.length; i++) {
-            Class<?> parameterType = parameterTypes[i];
-            try {
-//                Object object = gson.fromJson(split[1], parameterType);
-//                parmeters[i] = object;
-            } catch (Exception e){
-
-            }
-        }
-
-        try {
-            Object invoke = entry.method.invoke(entry.bean, parmeters);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
-        int i=0;
-        i++;
-
-    }
 
 
 
