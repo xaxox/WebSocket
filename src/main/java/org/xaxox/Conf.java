@@ -2,14 +2,19 @@ package org.xaxox;
 
 import javax.websocket.server.ServerEndpointConfig;
 
+public class Conf extends ServerEndpointConfig.Configurator {
 
-public class WebSocketConfigurer extends ServerEndpointConfig.Configurator {
 
 
-    private static MyEndPoint endPoint = new MyEndPoint();
+
+    public Conf() {
+        int i=0;
+        i++;
+
+    }
 
     @Override
     public <T> T getEndpointInstance(Class<T> endpointClass) throws InstantiationException {
-        return (T) endPoint;
+        return (T) new MyEndPoint();
     }
 }

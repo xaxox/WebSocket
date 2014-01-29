@@ -2,12 +2,13 @@ apply plugin: 'war'
 
 repositories {
     mavenCentral()
+    mavenRepo urls:"https://maven.java.net/content/groups/promoted/"
 }
 
 dependencies {
+
     compile 'org.springframework:spring-webmvc:4.0.0.RELEASE'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'javax.websocket:javax.websocket-api:1.0'
-    compile 'org.apache.geronimo.specs:geronimo-servlet_3.0_spec:1.0'
 
+    providedCompile 'javax:javaee-api:7.0-b82'
 }

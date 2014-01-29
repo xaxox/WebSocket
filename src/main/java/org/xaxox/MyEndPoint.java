@@ -1,14 +1,20 @@
 package org.xaxox;
 
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@ServerEndpoint(value = "/ws", configurator = WebSocketConfigurer.class)
+@ServerEndpoint(value = "/ws", configurator = Conf.class )
 public class MyEndPoint {
 
+
+    public MyEndPoint() {
+
+    }
 
     private Set<Session> userSessions = Collections.synchronizedSet(new HashSet<Session>());
 

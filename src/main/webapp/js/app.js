@@ -9,7 +9,7 @@ function init(){
         test();
     };
     ws.onclose = function() {  };
-    ws.onmessage = function(evt) { $("#msg").append("<p>"+evt.data+"</p>"); };
+    ws.onmessage = function(evt) { console.log(evt) };
 }
 
 function test(){
