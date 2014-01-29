@@ -12,8 +12,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("org.xaxox")
-@PropertySource("classpath*:application.properties")
+@ComponentScan(basePackages = {"org.xaxox"})
+@PropertySource(value = "classpath:application.properties")
 public class BeansRepo {
 
     @Autowired
