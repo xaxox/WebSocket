@@ -1,12 +1,19 @@
 package org.xaxox;
 
-import javax.websocket.*;
+import org.xaxox.config.SpringUtil;
+import org.xaxox.dispatcher.Dispatcher;
+import org.xaxox.serverObject.ServerObject;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@ServerEndpoint(value = "/ws", configurator = WebSocketConfigurer.class)
+@ServerEndpoint(value = "/ws")
 public class MyEndPoint {
 
 
@@ -21,6 +28,10 @@ public class MyEndPoint {
     public void onOpen(Session userSession) {
 
         userSessions.add(userSession);
+
+        ServerObject bean = SpringUtil.getBean(ServerObject.class);
+
+        bean.onConnect(userSession);
     }
 
     /**
@@ -41,6 +52,11 @@ public class MyEndPoint {
      */
     @OnMessage
     public void onMessage(String message, Session userSession) {
+
+        ServerObject bean = SpringUtil.getBean(ServerObject.class);
+
+        bean.onMessage(userSession, message);
+
         System.out.println("Message Received: " + message);
         for (Session session : userSessions) {
             System.out.println("Sending to " + session.getId());

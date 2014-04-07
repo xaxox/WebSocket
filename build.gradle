@@ -6,8 +6,6 @@ repositories {
 
 dependencies {
     compile 'org.springframework:spring-webmvc:4.0.0.RELEASE'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'javax.websocket:javax.websocket-api:1.0'
-    compile 'org.apache.geronimo.specs:geronimo-servlet_3.0_spec:1.0'
-
+//    compile 'com.google.code.gson:gson:2.2.4',
+    compile 'net.sf.flexjson:flexjson:3.2'
 }

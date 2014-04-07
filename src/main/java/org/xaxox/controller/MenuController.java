@@ -1,20 +1,19 @@
 package org.xaxox.controller;
 
-import org.xaxox.web.socket.server.WebSocketController;
-import org.xaxox.web.socket.server.WebSocketHandler;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@WebSocketController
+
+@Controller
 public class MenuController {
 
 
+    @ResponseBody
+    @RequestMapping("/qwe")
+    public String qwe(){
 
-
-    @WebSocketHandler(listenTo = "player")
-    public void view(Player player){
-
-
-
-
+        return "[eq [eq[ eq";
     }
 
 

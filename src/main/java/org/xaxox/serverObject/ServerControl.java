@@ -1,4 +1,4 @@
-package org.xaxox.web.socket.server;
+package org.xaxox.serverObject;
 
 import org.springframework.stereotype.Component;
 
@@ -10,8 +10,5 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Component
-public @interface WebSocketController {
-
-
-
+public @interface ServerControl {
 }
