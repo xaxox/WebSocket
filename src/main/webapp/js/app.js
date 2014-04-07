@@ -56,13 +56,22 @@ var Server = function(){
 
         elaborateResponse: function(response){
             var cb = this.requestMap[response.id-0];
-            cb(response.result);
+
+            if(cb === "waitReturn"){
+                this.requestMap[response.id-0] = {result: response.result}
+            } else {
+                delete this.requestMap[response.id-0];
+                cb(response.result);
+            }
         },
 
         defineMethods: function(listMethods){
             for(var i=0; i< listMethods.length; i++){
-                var method = listMethods[i];
-                this[method] = function(){
+                var methodName = listMethods[i];
+
+
+                this[methodName] = function(){
+
                     var args = [];
                     var cb;
 
@@ -78,11 +87,19 @@ var Server = function(){
                     var obj = {
                         args: args,
                         id: id,
-                        method: method
+                        method: methodName
                     };
                     var str = JSON.stringify(obj);
-                    this.requestMap[id] = cb;
+                    this.requestMap[id] = cb? cb : "waitReturn";
                     this.ws.send(str);
+
+
+                    if(!cb){
+
+                        while (!this.requestMap[id].result){}
+
+                        return this.requestMap[id].result;
+                    }
                 }
             }
         }

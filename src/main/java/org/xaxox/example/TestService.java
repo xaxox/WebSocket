@@ -11,4 +11,9 @@ public class TestService {
     public String main(int a, int b, String c){
         return  "Pizda" + a + b + c;
     }
+
+    @MethodControl()
+    public Integer test(Integer a){
+        return  a*a*a;
+    }
 }

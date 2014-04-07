@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.xaxox.convert.ConversionException;
+import org.xaxox.convert.ConversionService;
 
 import javax.annotation.PostConstruct;
 import javax.websocket.Session;
@@ -24,6 +26,9 @@ public class ServerObject {
 
     @Autowired
     private JSONSerializer serializer;
+
+    @Autowired
+    private ConversionService conversionService;
 
 
     @Autowired
@@ -68,43 +73,40 @@ public class ServerObject {
     }
 
 
-    public void onMessage(Session session, String message) {
+    public void onMessage(Session session, String message) throws ServerObjectException {
 
 
         Map deserialize = (Map) deserializer.deserialize(message);
 
-        String id = String.valueOf((Long) deserialize.get("id"));
-        String method = (String) deserialize.get("method");
+        Long id = (Long) deserialize.get("id");
+        String methodName = (String) deserialize.get("method");
         List arguments = (List) deserialize.get("args");
 
-        MethodEntry me = methodMap.get(method);
+        MethodEntry me = methodMap.get(methodName);
+        Method method = me.method;
 
-        Type[] genericParameterTypes = me.method.getGenericParameterTypes();
-
-        int c = 0;
+        Type[] genericParameterTypes = method.getGenericParameterTypes();
 
         Object[] argsToInvoke = new Object[genericParameterTypes.length];
 
-        for (Type genericParameterType : genericParameterTypes) {
-            Object arg;
-            if (genericParameterType.getTypeName().equals("int")) {
-                arg = Integer.valueOf((String) arguments.get(c));
-            } else {
-                arg = arguments.get(c);
+        for (int i = 0; i < genericParameterTypes.length; i++) {
+            Type genericParameterType = genericParameterTypes[i];
+            try {
+                Object converted = conversionService.convert(genericParameterType, arguments.get(i));
+                argsToInvoke[i] = converted;
+            } catch (ConversionException e) {
+                throw new ServerObjectException("Could not convert a passed value", e);
             }
-
-            argsToInvoke[c] = arg;
-            c++;
         }
 
         Object result = null;
 
         try {
-            result = me.method.invoke(me.bean, argsToInvoke);
+            result = method.invoke(me.bean, argsToInvoke);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            e.printStackTrace();//todo
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            e.printStackTrace();//todo
         }
         HashMap hashMap = new HashMap();
         hashMap.put("result", result);
@@ -117,11 +119,8 @@ public class ServerObject {
         session.getAsyncRemote().sendText(serialize);
     }
 
-
     private class MethodEntry {
         Object bean;
         Method method;
     }
-
-
 }

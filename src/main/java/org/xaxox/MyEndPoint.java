@@ -52,15 +52,7 @@ public class MyEndPoint {
      */
     @OnMessage
     public void onMessage(String message, Session userSession) {
-
         ServerObject bean = SpringUtil.getBean(ServerObject.class);
-
         bean.onMessage(userSession, message);
-
-        System.out.println("Message Received: " + message);
-        for (Session session : userSessions) {
-            System.out.println("Sending to " + session.getId());
-            session.getAsyncRemote().sendText(message);
-        }
     }
 }
