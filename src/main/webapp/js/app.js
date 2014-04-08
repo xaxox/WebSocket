@@ -31,7 +31,7 @@ var Server = function(){
         init: function(){
             this.requestMap = {};
             var self = this;
-            var ws = new WebSocket("ws://localhost:8080/ws");
+            var ws = new WebSocket("ws://"+window.location.pathname+":8080/ws");
             this.ws = ws;
             ws.onopen = this.onOpen;
             ws.onclose = function() {};
