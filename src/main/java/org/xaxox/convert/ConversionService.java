@@ -15,14 +15,11 @@ public class ConversionService {
     private final static Convertor<Long> longConvertor =  new LongConvertor();
 
     private static final Map<Type,Convertor> convertorMap = new HashMap<Type,Convertor>(){{
-
-
-
         put(String.class, new StringConvertor());
-        put(Integer.class, new IntegerConvertor());
-        put(int.class, new IntegerConvertor());
-        put(Long.class, new LongConvertor());
-        put(long.class, new LongConvertor());
+        put(Integer.class, integerConvertor);
+        put(int.class, integerConvertor);
+        put(Long.class, longConvertor);
+        put(long.class, longConvertor);
     }};
 
 

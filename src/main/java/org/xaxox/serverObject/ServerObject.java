@@ -19,7 +19,7 @@ import java.util.*;
 @Component
 public class ServerObject {
 
-    private Map<String, MethodEntry> methodMap = new HashMap<>();
+    private Map<String, MethodEntry> methodMap = new HashMap();
 
     @Autowired
     private JSONDeserializer deserializer;

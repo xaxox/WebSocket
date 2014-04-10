@@ -1,7 +1,6 @@
 package org.xaxox.example;
 
 import org.xaxox.powerMap.Init;
-import org.xaxox.powerMap.OnCreate;
 import org.xaxox.powerMap.PowerMap;
 import org.xaxox.powerMap.PowerMapListener;
 
